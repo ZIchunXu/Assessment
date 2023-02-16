@@ -1,0 +1,36 @@
+﻿@model IQueryable<Assessment.Data.Blog>
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    @Html.ActionLink("Create", "Create", new {})
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var blog in Model) {
+                <tr>
+                    <td>@blog.Title</td>
+                    <td>@blog.Body</td>
+                    <td>@blog.Author.FirstName @blog.Author.LastName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {  Id = blog.Id}) | 
+                        <form method="post" action="@Url.Action("Delete", "Blog")">
+                            <input type="hidden" name="id" value="@blog.Id" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
